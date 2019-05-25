@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package entities;
+package Models;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,6 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+/**
+ *
+ * @author codemiles
+ */
 public class AuthorTable extends JPanel {
 
 	/** Creates a new instance of AuthorTable */
@@ -30,6 +34,7 @@ public class AuthorTable extends JPanel {
 			Statement stat = conn.createStatement();
 			rs = stat.executeQuery(query);
 
+			myTable = new JTable();
 			add(myTable);
 			mySPane = new JScrollPane(myTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -50,6 +55,7 @@ public class AuthorTable extends JPanel {
 
 			rs = stat.executeQuery(query);
 
+			myTable.setModel(null);;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -58,5 +64,6 @@ public class AuthorTable extends JPanel {
 	JTable myTable;
 	JScrollPane mySPane;
 	ResultSet rs;
+
 	Connection conn;
 }

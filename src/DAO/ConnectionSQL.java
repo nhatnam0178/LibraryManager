@@ -64,5 +64,4 @@ public final class ConnectionSQL {
 			return null;
 		}
 	}
-
 }
