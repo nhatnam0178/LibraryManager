@@ -2,15 +2,11 @@ package MainMenu;
 
 import java.awt.EventQueue;
 
-import javax.swing.Action;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import java.awt.SystemColor;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
@@ -171,7 +167,7 @@ public class HomeFrm extends JMenuBar {
 
 			}
 		});
-		btnAdd.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Add.png"));
+		btnAdd.setIcon(new ImageIcon(HomeFrm.class.getResource("/icons/Add.png")));
 		myToolBar.add(btnAdd);
 
 		JButton btnEdit = new JButton("Edit");
@@ -185,23 +181,23 @@ public class HomeFrm extends JMenuBar {
 				}
 			}
 		});
-		btnEdit.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Modify.png"));
+		btnEdit.setIcon(new ImageIcon(HomeFrm.class.getResource("/icons/Modify.png")));
 		myToolBar.add(btnEdit);
 
 		JButton btnRemove = new JButton("Remove");
-		btnRemove.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Remove.png"));
+		btnRemove.setIcon(new ImageIcon(HomeFrm.class.getResource("/icons/Remove.png")));
 		myToolBar.add(btnRemove);
 
 		JButton btnBorrow = new JButton("Borrow");
-		btnBorrow.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Borrow.png"));
+		btnBorrow.setIcon(new ImageIcon(HomeFrm.class.getResource("/icons/Borrow.png")));
 		myToolBar.add(btnBorrow);
 
 		JButton btnReturn = new JButton("Return");
-		btnReturn.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Return.png"));
+		btnReturn.setIcon(new ImageIcon(HomeFrm.class.getResource("/icons/Return.png")));
 		myToolBar.add(btnReturn);
 
 		JButton btnMaster = new JButton("Master");
-		btnMaster.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Master.png"));
+		btnMaster.setIcon(new ImageIcon(HomeFrm.class.getResource("/icons/Master.png")));
 		myToolBar.add(btnMaster);
 
 		JTextArea txtNotification = new JTextArea();
@@ -217,7 +213,7 @@ public class HomeFrm extends JMenuBar {
 		JButton btnSearch = new JButton("");
 		btnSearch.setBounds(475, 8, 57, 31);
 		frmLibraryManager.getContentPane().add(btnSearch);
-		btnSearch.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager1809\\LibraryManager\\icons\\Search.png"));
+		btnSearch.setIcon(new ImageIcon(HomeFrm.class.getResource("/icons/Search.png")));
 
 	}
 
