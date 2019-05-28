@@ -14,41 +14,29 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
-import DAO.ConnectionSQL;
-import Models.AuthorTable;
-import Models.BookStoreTable;
-import Models.BookTable;
-import Models.PublisherTable;
 import Models.VisitorAddPanel;
 import Models.VisitorEditPanel;
 import Models.VisitorTable;
-
 import javax.swing.JMenu;
-import java.awt.Font;
-import java.awt.Graphics;
-
 import javax.swing.JMenuBar;
-import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
-import java.awt.Component;
-
 import javax.swing.JButton;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class HomeFrm extends JMenuBar {
 
 	private JFrame frmLibraryManager;
-	private ConnectionSQL conn = new ConnectionSQL();
+	private Connection connection;
 	private JTabbedPane tabbedPane;
 	private JScrollPane[] mySP = new JScrollPane[5];
 	private JPanel[] myTables = new JPanel[5];
 	private JTextField txtSearch;
+
 //	private myToolbar myToolbar;
 	/**
 	 * Launch the application.
@@ -123,29 +111,38 @@ public class HomeFrm extends JMenuBar {
 		tabbedPane.setBounds(10, 49, 685, 301);
 
 		frmLibraryManager.getContentPane().add(tabbedPane);
+		try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			System.out.println("Driver Exits !!!");
 
-		myTables[0] = new VisitorTable(conn);
+			connection = DriverManager.getConnection(
+					"jdbc:sqlserver://localhost:1435;databaseName=LibraryManager;user=sa;password=123456");
+
+		} catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		} catch (SQLException ex) {
+			ex.getStackTrace();
+		}
+		myTables[0] = new VisitorTable(connection);
 		mySP[0] = new JScrollPane(myTables[0], JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		
+
 //		myToolBar = new
 //	
 //				
-				JPanel pVisitor = new JPanel();
-
-		tabbedPane.add("Visitor", pVisitor);
-
+		JPanel pVisitor = new JPanel();
+		tabbedPane.addTab("Visitor", mySP[0]);
 		JPanel pBook = new JPanel();
-		tabbedPane.addTab("Book", mySP[0]);
+		tabbedPane.addTab("Book", mySP[1]);
 
 		JPanel pAuthor = new JPanel();
-		tabbedPane.addTab("Author", mySP[1]);
+		tabbedPane.addTab("Author", mySP[2]);
 
 		JPanel pPublisher = new JPanel();
-		tabbedPane.addTab("Publisher", mySP[2]);
+		tabbedPane.addTab("Publisher", mySP[3]);
 
 		JPanel pBookStore = new JPanel();
-		tabbedPane.addTab("BookStore", mySP[3]);
+		tabbedPane.addTab("BookStore", mySP[4]);
 
 		JButton btnAdd = new JButton("Add");
 		btnAdd.setToolTipText("");
@@ -223,5 +220,5 @@ public class HomeFrm extends JMenuBar {
 		btnSearch.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager1809\\LibraryManager\\icons\\Search.png"));
 
 	}
-	
+
 }
