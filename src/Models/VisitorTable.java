@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import DAO.ConnectionSQL;
+
 /**
  *
  * @author codemiles
@@ -24,21 +26,20 @@ import javax.swing.JTable;
 public class VisitorTable extends JPanel {
 
 	/** Creates a new instance of VisitorTable */
-	public VisitorTable(Connection conn) {
+	public VisitorTable(ConnectionSQL conn) {
 		if (conn == null) {
 			return;
 		}
 		try {
-			this.conn = conn;
+			conn.Connect();
 			String query = "Select * from Visitor;";
-			Statement stat = conn.createStatement();
-			rs = stat.executeQuery(query);
+			conn.Query(query);
 			myTable = new JTable();
 			add(myTable);
 			mySPane = new JScrollPane(myTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			add(mySPane);
-		} catch (SQLException ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}

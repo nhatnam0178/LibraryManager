@@ -20,6 +20,7 @@ import Models.BookStoreTable;
 import Models.BookTable;
 import Models.PublisherTable;
 import Models.VisitorAddPanel;
+import Models.VisitorEditPanel;
 import Models.VisitorTable;
 
 import javax.swing.JMenu;
@@ -47,7 +48,8 @@ public class HomeFrm extends JMenuBar {
 	private JTabbedPane tabbedPane;
 	private JScrollPane[] mySP = new JScrollPane[5];
 	private JPanel[] myTables = new JPanel[5];
-
+	private JTextField txtSearch;
+//	private myToolbar myToolbar;
 	/**
 	 * Launch the application.
 	 */
@@ -114,10 +116,39 @@ public class HomeFrm extends JMenuBar {
 		frmLibraryManager.getContentPane().setLayout(null);
 
 		JToolBar myToolBar = new JToolBar();
-		myToolBar.setBounds(0, 0, 695, 49);
+		myToolBar.setBounds(0, 0, 465, 49);
 		frmLibraryManager.getContentPane().add(myToolBar);
 
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(10, 49, 685, 301);
+
+		frmLibraryManager.getContentPane().add(tabbedPane);
+
+		myTables[0] = new VisitorTable(conn);
+		mySP[0] = new JScrollPane(myTables[0], JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+//		myToolBar = new
+//	
+//				
+				JPanel pVisitor = new JPanel();
+
+		tabbedPane.add("Visitor", pVisitor);
+
+		JPanel pBook = new JPanel();
+		tabbedPane.addTab("Book", mySP[0]);
+
+		JPanel pAuthor = new JPanel();
+		tabbedPane.addTab("Author", mySP[1]);
+
+		JPanel pPublisher = new JPanel();
+		tabbedPane.addTab("Publisher", mySP[2]);
+
+		JPanel pBookStore = new JPanel();
+		tabbedPane.addTab("BookStore", mySP[3]);
+
 		JButton btnAdd = new JButton("Add");
+		btnAdd.setToolTipText("");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				switch (tabbedPane.getSelectedIndex()) {
@@ -146,13 +177,19 @@ public class HomeFrm extends JMenuBar {
 		btnAdd.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Add.png"));
 		myToolBar.add(btnAdd);
 
-		JButton btnSearch = new JButton("Search");
-		btnSearch.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Search.png"));
-		myToolBar.add(btnSearch);
+		JButton btnEdit = new JButton("Edit");
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				switch (tabbedPane.getSelectedIndex()) {
+				case 0:
+					(new VisitorEditPanel()).setVisible(true);
+					break;
 
-		JButton btnModify = new JButton("Modify");
-		btnModify.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Modify.png"));
-		myToolBar.add(btnModify);
+				}
+			}
+		});
+		btnEdit.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Modify.png"));
+		myToolBar.add(btnEdit);
 
 		JButton btnRemove = new JButton("Remove");
 		btnRemove.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Remove.png"));
@@ -166,54 +203,25 @@ public class HomeFrm extends JMenuBar {
 		btnReturn.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Return.png"));
 		myToolBar.add(btnReturn);
 
-		JButton btnReport = new JButton("Report");
-		btnReport.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Report.png"));
-		myToolBar.add(btnReport);
-
 		JButton btnMaster = new JButton("Master");
 		btnMaster.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager\\icons\\Master.png"));
 		myToolBar.add(btnMaster);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 49, 685, 301);
+		JTextArea txtNotification = new JTextArea();
+		txtNotification.setBounds(10, 356, 685, 94);
+		frmLibraryManager.getContentPane().add(txtNotification);
 
-		frmLibraryManager.getContentPane().add(tabbedPane);
+		txtSearch = new JTextField();
+		txtSearch.setToolTipText("Input Keyword!");
+		txtSearch.setBounds(537, 12, 156, 20);
+		frmLibraryManager.getContentPane().add(txtSearch);
+		txtSearch.setColumns(10);
 
-		myTables[0] = new VisitorTable(null);
-		myTables[1] = new BookTable(null);
-		myTables[2] = new AuthorTable(null);
-		myTables[3] = new PublisherTable(null);
-		myTables[4] = new BookStoreTable(null);
-		mySP[0] = new JScrollPane(myTables[0], JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
-		mySP[1] = new JScrollPane(myTables[1], JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		mySP[2] = new JScrollPane(myTables[2], JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		mySP[3] = new JScrollPane(myTables[3], JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		mySP[4] = new JScrollPane(myTables[4], JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		JScrollPane scVisitor = new JScrollPane();
-		scVisitor.setAlignmentY(Component.TOP_ALIGNMENT);
-		tabbedPane.addTab("Visitor", null, scVisitor, null);
-
-		JScrollPane scBook = new JScrollPane();
-		tabbedPane.addTab("Book", null, scBook, null);
-
-		JScrollPane scAuthor = new JScrollPane();
-		tabbedPane.addTab("Author", null, scAuthor, null);
-
-		JScrollPane scPublisher = new JScrollPane();
-		tabbedPane.addTab("Publisher", null, scPublisher, null);
-
-		JScrollPane scBookStore = new JScrollPane();
-		tabbedPane.addTab("BookStore", null, scBookStore, null);
-
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 356, 685, 94);
-		frmLibraryManager.getContentPane().add(textArea);
+		JButton btnSearch = new JButton("");
+		btnSearch.setBounds(475, 8, 57, 31);
+		frmLibraryManager.getContentPane().add(btnSearch);
+		btnSearch.setIcon(new ImageIcon("C:\\ProjectEclipses\\LibraryManager1809\\LibraryManager\\icons\\Search.png"));
 
 	}
+	
 }
