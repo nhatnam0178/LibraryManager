@@ -5,11 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
+import DAO.Repositories;
 import Models.ConnectionSQL;
 import Models.MemberAddPanel;
 import Models.MemberEditPanel;
@@ -22,6 +24,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class HomeFrm extends JMenuBar {
 
@@ -31,6 +36,8 @@ public class HomeFrm extends JMenuBar {
 	private JScrollPane[] mySP = new JScrollPane[5];
 	private JPanel[] myTables = new JPanel[5];
 	private JTextField txtSearch;
+	Repositories rep = new Repositories();
+	int idSelected;
 
 //	private myToolbar myToolbar;
 	/**
@@ -108,11 +115,10 @@ public class HomeFrm extends JMenuBar {
 		frmLibraryManager.getContentPane().add(tabbedPane);
 
 		myTables[0] = new MemberTable();
-		
-		
+
 		mySP[0] = new JScrollPane(myTables[0], JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
+		
 //		myToolBar = new
 //	
 //				
@@ -175,6 +181,18 @@ public class HomeFrm extends JMenuBar {
 		myToolBar.add(btnEdit);
 
 		JButton btnRemove = new JButton("Remove");
+		btnRemove.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				switch (tabbedPane.getSelectedIndex()) {
+				case 0:
+					rep.deleteMemberByID(idSelected);
+					break;
+				}
+			}
+		});
+
 		btnRemove.setIcon(new ImageIcon(HomeFrm.class.getResource("/icons/Remove.png")));
 		myToolBar.add(btnRemove);
 
@@ -206,5 +224,4 @@ public class HomeFrm extends JMenuBar {
 		btnSearch.setIcon(new ImageIcon(HomeFrm.class.getResource("/icons/Search.png")));
 
 	}
-
 }

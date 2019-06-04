@@ -21,7 +21,7 @@ public class MemberTable extends JPanel {
 	JTable myTable;
 	ResultSet rs;
 	JScrollPane mySPane;
-
+	int idSelected;
 	CashingResultTableModel myModel;
 
 	/** Creates a new instance of MemberTable */
@@ -37,41 +37,14 @@ public class MemberTable extends JPanel {
 			rs = conn.Query(query);
 			myModel = new CashingResultTableModel(rs);
 			myTable = new JTable(myModel);
-			myTable.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent arg0) {
-					ListSelectionModel rowSM = myTable.getSelectionModel();
 
-					rowSM.addListSelectionListener(new ListSelectionListener() {
-
-						@Override
-						public void valueChanged(ListSelectionEvent e) {
-							// TODO Auto-generated method stub
-							int selectedRow;
-							ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-
-							selectedRow = lsm.getMinSelectionIndex();
-
-							int numCols = myTable.getColumnCount();
-							CashingResultTableModel model = new CashingResultTableModel(rs);
-							model = (CashingResultTableModel) myTable.getModel();
-
-							System.out.print(" \n row " + selectedRow + ":");
-
-							for (int j = 0; j < numCols; j++) {
-								System.out.print(" " + model.getValueAt(selectedRow, j));
-							}
-						}
-					});
-				}
-			});
 			add(myTable);
 			resizeColumnWidth(myTable);
 
 			mySPane = new JScrollPane(myTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			add(mySPane);
-
+			GetIdInTable();
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
@@ -92,6 +65,34 @@ public class MemberTable extends JPanel {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	public int GetIdInTable() {
+		myTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				ListSelectionModel rowSM = myTable.getSelectionModel();
+
+				rowSM.addListSelectionListener(new ListSelectionListener() {
+
+					@Override
+					public void valueChanged(ListSelectionEvent e) {
+						// TODO Auto-generated method stub
+						int selectedRow;
+						ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+
+						selectedRow = lsm.getMinSelectionIndex();
+
+						int numCols = myTable.getColumnCount();
+						CashingResultTableModel model = new CashingResultTableModel(rs);
+						model = (CashingResultTableModel) myTable.getModel();
+
+						idSelected = (int) model.getValueAt(selectedRow, 0);
+					}
+				});
+			}
+		});
+		return idSelected;
 	}
 
 	public void resizeColumnWidth(JTable table) {

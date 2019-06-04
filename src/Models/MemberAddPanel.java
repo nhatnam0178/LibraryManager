@@ -44,7 +44,7 @@ public class MemberAddPanel extends JDialog {
 	 * Create the dialog.
 	 */
 	public MemberAddPanel() {
-		setTitle("Add New Visitor");
+		setTitle("Add New Member");
 		setBounds(100, 100, 395, 386);
 		getContentPane().setLayout(null);
 
@@ -54,7 +54,7 @@ public class MemberAddPanel extends JDialog {
 
 				String fullName = txtfullName.getText();
 				int age = Integer.parseInt(txtAge.getText());
-				int gender = 0;
+				byte gender = 0;
 				String obj = (String) cbGender.getSelectedItem();
 				if (obj == "Male") {
 					gender = 1;
@@ -62,14 +62,15 @@ public class MemberAddPanel extends JDialog {
 				String phoneNum = txtPhoneNum.getText();
 				String address = txtAddress.getText();
 				int numOf_BorrBook = Integer.parseInt(txtNumOf.getText());
-				boolean status = false;
-				int objStatus = (Integer) cbStatus.getSelectedItem();
-//				if (objStatus = 1) {
-//					status = true;
-//				}
-//
-//				Member newMember = new Member(fullName, age, gender, phoneNum, address, numOf_BorrBook, status);
-//				rep.createMember(newMember);
+				byte status = 0;
+				String objStatus = (String) cbStatus.getSelectedItem();
+				if (objStatus == "True") {
+					status = 1;
+				}
+
+				Member newMember = new Member(fullName, age, gender, phoneNum, address, numOf_BorrBook, status);
+				rep.createMember(newMember);
+				dispose();
 			}
 		});
 		btnOk.setBounds(181, 315, 89, 23);

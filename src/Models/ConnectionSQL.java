@@ -83,5 +83,22 @@ public final class ConnectionSQL {
 
 		return -1;
 	}
+	public int DeleteById(String query, String[] arrParameter) {
 
+		// thuc hien cau truy van
+		PreparedStatement state;
+		try {
+			state = conn.prepareStatement(query);
+			for (int i = 0; i < arrParameter.length; i++) {
+				state.setString(i + 1, arrParameter[i]);
+			}
+			int rs = state.executeUpdate();
+			return rs;// result execute line
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return -1;
+	}
 }
