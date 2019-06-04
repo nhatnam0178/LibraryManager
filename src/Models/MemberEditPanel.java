@@ -15,7 +15,7 @@ import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VisitorEditPanel extends JDialog {
+public class MemberEditPanel extends JDialog {
 	private JTextField txtName;
 	private JTextField txtAddress;
 	private JTextField textField;
@@ -26,7 +26,7 @@ public class VisitorEditPanel extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			VisitorEditPanel dialog = new VisitorEditPanel();
+			MemberEditPanel dialog = new MemberEditPanel();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -37,7 +37,7 @@ public class VisitorEditPanel extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VisitorEditPanel() {
+	public MemberEditPanel() {
 		setTitle("Edit Visitor");
 		setBounds(100, 100, 397, 329);
 		getContentPane().setLayout(null);

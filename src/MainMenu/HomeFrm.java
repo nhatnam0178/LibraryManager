@@ -10,15 +10,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
-import Models.VisitorAddPanel;
-import Models.VisitorEditPanel;
-import Models.VisitorTable;
+import Models.ConnectionSQL;
+import Models.MemberAddPanel;
+import Models.MemberEditPanel;
+import Models.MemberTable;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -27,7 +26,7 @@ import javax.swing.JTextField;
 public class HomeFrm extends JMenuBar {
 
 	private JFrame frmLibraryManager;
-	private Connection connection;
+	private ConnectionSQL conn;
 	private JTabbedPane tabbedPane;
 	private JScrollPane[] mySP = new JScrollPane[5];
 	private JPanel[] myTables = new JPanel[5];
@@ -107,27 +106,18 @@ public class HomeFrm extends JMenuBar {
 		tabbedPane.setBounds(10, 49, 685, 301);
 
 		frmLibraryManager.getContentPane().add(tabbedPane);
-		try {
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			System.out.println("Driver Exits !!!");
 
-			connection = DriverManager.getConnection(
-					"jdbc:sqlserver://localhost:1435;databaseName=LibraryManager;user=sa;password=123456");
-
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		} catch (SQLException ex) {
-			ex.getStackTrace();
-		}
-		myTables[0] = new VisitorTable(connection);
+		myTables[0] = new MemberTable();
+		
+		
 		mySP[0] = new JScrollPane(myTables[0], JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 //		myToolBar = new
 //	
 //				
-		JPanel pVisitor = new JPanel();
-		tabbedPane.addTab("Visitor", mySP[0]);
+		JPanel pMember = new JPanel();
+		tabbedPane.addTab("Member", mySP[0]);
 		JPanel pBook = new JPanel();
 		tabbedPane.addTab("Book", mySP[1]);
 
@@ -146,7 +136,7 @@ public class HomeFrm extends JMenuBar {
 			public void actionPerformed(ActionEvent arg0) {
 				switch (tabbedPane.getSelectedIndex()) {
 				case 0:
-					(new VisitorAddPanel()).setVisible(true);
+					(new MemberAddPanel()).setVisible(true);
 					break;
 //				case 1:
 //					(new BookPanel(conn, myMother)).show();
@@ -175,7 +165,7 @@ public class HomeFrm extends JMenuBar {
 			public void actionPerformed(ActionEvent arg0) {
 				switch (tabbedPane.getSelectedIndex()) {
 				case 0:
-					(new VisitorEditPanel()).setVisible(true);
+					(new MemberEditPanel()).setVisible(true);
 					break;
 
 				}

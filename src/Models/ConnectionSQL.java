@@ -1,4 +1,4 @@
-package DAO;
+package Models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public final class ConnectionSQL {
-	private String url = "jdbc:sqlserver://localhost:1435;databaseName=LibraryManager;user=sa;password=123456";;
+	private String url = "jdbc:sqlserver://localhost:1435;databaseName=LibraryManagerUpdated;user=sa;password=123456";;
 	public Connection conn;
 
 	public void Connect() {
@@ -64,4 +64,24 @@ public final class ConnectionSQL {
 			return null;
 		}
 	}
+
+	public int Create(String query, String[] arrParameter) {
+
+		// thuc hien cau truy van
+		PreparedStatement state;
+		try {
+			state = conn.prepareStatement(query);
+			for (int i = 0; i < arrParameter.length; i++) {
+				state.setString(i + 1, arrParameter[i]);
+			}
+			int rs = state.executeUpdate();
+			return rs;// result execute line
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return -1;
+	}
+
 }
